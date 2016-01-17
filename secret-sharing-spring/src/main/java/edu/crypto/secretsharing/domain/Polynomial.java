@@ -20,8 +20,8 @@ public class Polynomial {
 
     @Override
     public String toString() {
-        String result = coefficients.get(0).toString();
-        for (int i = 1; i < degree; i++) {
+        String result = coefficients.get(0).toString() + "+" + coefficients.get(1) + "X";
+        for (int i = 2; i < degree; i++) {
             result += "+" + coefficients.get(i) + "X^" + i;
         }
         return result;

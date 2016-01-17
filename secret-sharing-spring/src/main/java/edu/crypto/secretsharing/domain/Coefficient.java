@@ -15,17 +15,12 @@ public class Coefficient {
     @Override
     public String toString() {
         if(value.size() == 1) {
-            return value.get(0).toString();
+            return MathUtils.numberToString(value.get(0));
         }
         String result = "(";
         for (int i = 0; i < value.size() ; i++) {
             Double number = value.get(i);
-            String numberString = "";
-            if(MathUtils.isApproximatelyLong(number)) {
-                numberString += number.longValue();
-            } else {
-                numberString += number;
-            }
+            String numberString = MathUtils.numberToString(number);
             if(i != value.size()-1) {
                 result += numberString + ", ";
             } else {

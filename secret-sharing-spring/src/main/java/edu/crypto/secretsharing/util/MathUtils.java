@@ -14,6 +14,17 @@ public class MathUtils {
         }
     }
 
+    public static String numberToString(Double number) {
+        String numberString = "";
+        if(MathUtils.isApproximatelyLong(number)) {
+            numberString += number.longValue();
+        } else {
+            numberString += number;
+        }
+        return numberString;
+    }
+
+
     public static boolean areAllLong(List<Double> numbers) {
         int i = 0;
         boolean areAllLong = true;
