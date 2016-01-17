@@ -11,33 +11,34 @@
   <body background="resources/background.jpg">
     <div class="row">
         <form id="secret-share-form" class="col s6 offset-s3 container light-blue accent-1 z-depth-5">
+            <div id="errors" class="col s12"></div>
             <div class="row">
                 <div class="input-field col s6">
-                    <select>
-                        <option value="" disabled selected>Choose the message type</option>
+                    <select id="secret-type">
+                        <option value="" disabled selected>Choose the secret type</option>
                         <option value="1">Number</option>
                         <option value="2">Vector of numbers</option>
                         <option value="3">String</option>
                     </select>
-                    <label>Message type</label>
+                    <label for="secret-type">Secret type</label>
                 </div>
                 <div class="input-field col s6">
-                    <input id="message" type="text" class="validate" required>
-                    <label for="message">Message</label>
+                    <input id="secret" type="text">
+                    <label for="secret">Secret</label>
                 </div>
             </div>
             <div class="row">
                 <div class="input-field col s6">
-                    <input id="n" type="number" class="validate" required>
+                    <input id="n" type="number">
                     <label for="n">n</label>
                 </div>
                 <div class="input-field col s6">
-                    <input id="t" type="number" class="validate" required>
+                    <input id="t" type="number">
                     <label for="t">t</label>
                 </div>
             </div>
             <div class="row">
-                <a class="col s2 offset-s5 waves-effect waves-light btn">Share Secret</a>
+                <a id="share-secret-button" class="col s2 offset-s5 waves-effect waves-light btn">Share Secret</a>
             </div>
         </form>
     </div>
