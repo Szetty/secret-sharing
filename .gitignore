@@ -5,3 +5,5 @@
 *.iml
 **/.idea
 **/.idea/
+**/.gradle
+**/.gradle/
