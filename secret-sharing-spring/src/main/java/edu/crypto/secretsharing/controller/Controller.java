@@ -3,10 +3,10 @@ package edu.crypto.secretsharing.controller;
 import edu.crypto.secretsharing.dto.SplitRequestDTO;
 import edu.crypto.secretsharing.exception.ServerException;
 import edu.crypto.secretsharing.factory.PolynomialFactory;
+import edu.crypto.secretsharing.transformer.SecretTransformer;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import edu.crypto.secretsharing.transformer.SecretTransformer;
 
 @RestController
 @RequestMapping("/api")
