@@ -1,21 +1,19 @@
 function addError(error) {
     $('#errors').append(
-        "<div class='row red-text'>" + error +"</div>"
+        "<div class='row red-text text-darken-4'>" + error +"</div>"
     )
 }
 
-function validateSecretComponent() {
-    var typeComponent = $('#secret-type');
-    var secretComponent = $('#secret');
+function validateSecretComponent(type, secret) {
     var pattern;
-    switch(typeComponent.val()) {
-        case "1":
+    switch(type) {
+        case 1:
             pattern = /^\d+$/;
             break;
-        case "2":
+        case 2:
             pattern = /^\d+(,\d+)*$/;
             break;
-        case "3":
+        case 3:
             pattern = /.+/;
             break;
         default:
@@ -25,16 +23,14 @@ function validateSecretComponent() {
     if(pattern === null) {
         addError("You have to select a secret type!");
         return false;
-    } else if(!pattern.test(secretComponent.val())) {
+    } else if(!pattern.test(secret)) {
         addError("Secret not matching it's format enforced by the type!");
         return false;
     }
     return true;
 }
 
-function validateNumberComponents() {
-    var n = parseInt($('#n').val());
-    var t = parseInt($('#t').val());
+function validateNumberComponents(n, t) {
     if(isNaN(n) || isNaN(t)) {
         addError("All the number inputs should be filled in!");
         return false;
@@ -59,8 +55,12 @@ function init() {
 
 function validateMainForm() {
     clearErrors();
-    if(validateNumberComponents() & validateSecretComponent()) {
-        alert("succes");
+    var type = parseInt($('#secret-type').val());
+    var secret = $('#secret').val();
+    var n = parseInt($('#n').val());
+    var t = parseInt($('#t').val());
+    if(validateNumberComponents(n, t) & validateSecretComponent(type, secret)) {
+        getShares(new SplitRequest(type, secret, n, t));
     }
 }
 
