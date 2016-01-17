@@ -1,5 +1,7 @@
 package edu.crypto.secretsharing.domain
 
+import edu.crypto.secretsharing.util.MathUtils
+
 class Coefficient {
 
     List<Double> value
@@ -15,10 +17,17 @@ class Coefficient {
         }
         String result = "(";
         for (int i = 0; i < value.size() ; i++) {
-            if(i != value.size()-1) {
-                result += number + ", "
+            def number = value.get(i)
+            def numberString = "";
+            if(MathUtils.isApproximatelyLong(number)) {
+                numberString += (long) number;
             } else {
-                result += number + ")"
+                numberString += number;
+            }
+            if(i != value.size()-1) {
+                result += numberString + ", "
+            } else {
+                result += numberString + ")"
             }
         }
         return result

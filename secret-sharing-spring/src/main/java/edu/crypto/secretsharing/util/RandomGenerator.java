@@ -2,14 +2,16 @@ package edu.crypto.secretsharing.util;
 
 import java.util.Random;
 
-/**
- * Created by szede_000 on 1/17/2016.
- */
 public class RandomGenerator {
 
-    public static Double generateRandomDouble() {
+    public static Double generateRandomDoubleFromInterval(MathUtils.Interval<Double> interval) {
         Random r = new Random();
-        double randomValue = Double.MIN_VALUE + (Double.MAX_VALUE - Double.MIN_VALUE) * r.nextDouble();
-        return randomValue;
+        double randomValue = interval.min + (interval.max - interval.min) * r.nextDouble();
+        return Math.floor(randomValue * 100.0) / 100.0;
+    }
+
+    public static Long generateRandomLongFromInterval(MathUtils.Interval<Long> interval) {
+        Random r = new Random();
+        return Math.round(interval.min + (interval.max - interval.min) * r.nextDouble());
     }
 }
