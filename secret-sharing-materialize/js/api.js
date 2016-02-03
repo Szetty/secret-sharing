@@ -1,13 +1,5 @@
-var serverUrl = "http://localhost:8080/api";
-//var serverUrl = "http://192.168.2.193:8080/api";
-
-function hello(success) {
-    $.ajax({
-        url: serverUrl + "/hello" ,
-        type: "GET",
-        success: success
-    });
-}
+//var serverUrl = "http://localhost:8080/api";
+var serverUrl = "http://192.168.2.192:8080/secret-sharing";
 
 function getShares(splitRequest) {
     $.ajax({
@@ -18,7 +10,7 @@ function getShares(splitRequest) {
         type: "POST",
         data: JSON.stringify(splitRequest),
         success: function(res) {
-            alert(res);
+            alert("Success");
         }
     });
 }

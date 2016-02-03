@@ -53,6 +53,33 @@ function init() {
     $('.parallax').parallax();
 }
 
+function loadShares(n) {
+    var inlineDiv = "<div style='display: flex;'>"
+    $('#shares').html('');
+    var icon = '<div class="material-icons">play_for_work</div>';
+    var html = '';
+    for (i = 0; i < n; i++) {
+        if(i%7==0) {
+            if(html != '') {
+                html+='</div>';
+            }
+            html+=inlineDiv;
+        }
+        html += '<div id="share_'+i+'">';
+        html += icon;
+        if(i<9) {
+            html += '<a href="'+serverUrl+'/shares/'+i+'" target="_blank">Share 0'+(i+1)+'</a>';
+        } else {
+            html += '<a href="'+serverUrl+'/shares/'+i+'" target="_blank">Share '+(i+1)+'</a>';
+        }
+        html += '</div>';
+        $('#shares').append(html);
+    }
+    html += '</div>'
+    $('#shares').html(html)
+    $('#shares').show();
+}
+
 function validateMainForm() {
     clearErrors();
     var type = parseInt($('#secret-type').val());
@@ -60,6 +87,8 @@ function validateMainForm() {
     var n = parseInt($('#n').val());
     var t = parseInt($('#t').val());
     if(validateNumberComponents(n, t) & validateSecretComponent(type, secret)) {
+        loadShares(n);
+        $('#shares-title').show();
         getShares(new SplitRequest(type, secret, n, t));
     }
 }
