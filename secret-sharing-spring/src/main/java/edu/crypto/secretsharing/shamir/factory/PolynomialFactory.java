@@ -1,7 +1,7 @@
-package edu.crypto.secretsharing.factory;
+package edu.crypto.secretsharing.shamir.factory;
 
-import edu.crypto.secretsharing.domain.Coefficient;
-import edu.crypto.secretsharing.domain.Polynomial;
+import edu.crypto.secretsharing.shamir.domain.Coefficient;
+import edu.crypto.secretsharing.shamir.domain.Polynomial;
 import edu.crypto.secretsharing.util.MathUtils;
 import edu.crypto.secretsharing.util.RandomGenerator;
 
@@ -30,7 +30,7 @@ public class PolynomialFactory {
     public static Polynomial buildPolynomial(List<Double> secret, int degree) {
         int size = secret.size();
         determineInterval(secret);
-        Polynomial polynomial = new Polynomial(degree);
+        Polynomial polynomial = new Polynomial(degree, interval);
         polynomial.add(buildCoefficient(secret));
         for (int i = 1; i < degree; i++) {
             List<Double> value = new ArrayList<>();

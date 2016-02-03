@@ -1,4 +1,4 @@
-package edu.crypto.secretsharing.domain;
+package edu.crypto.secretsharing.shamir.domain;
 
 import edu.crypto.secretsharing.util.MathUtils;
 
@@ -12,11 +12,16 @@ public class Coefficient {
         this.value = value;
     }
 
+    public List<Double> getValue() {
+        return value;
+    }
+
+    public void setValue(List<Double> value) {
+        this.value = value;
+    }
+
     @Override
     public String toString() {
-        if(value.size() == 1) {
-            return MathUtils.numberToString(value.get(0));
-        }
         String result = "(";
         for (int i = 0; i < value.size() ; i++) {
             Double number = value.get(i);

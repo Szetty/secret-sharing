@@ -1,23 +1,24 @@
 package edu.crypto.secretsharing.util;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MathUtils {
 
-    public static class Interval<Type> {
-        Type min;
-        Type max;
+    public static class Interval {
+        Double min;
+        Double max;
 
-        public Interval(Type min, Type max) {
+        public Interval(Double min, Double max) {
             this.min = min;
             this.max = max;
         }
     }
 
-    public static String numberToString(Double number) {
+    public static String numberToString(Number number) {
         String numberString = "";
-        if(MathUtils.isApproximatelyLong(number)) {
-            numberString += number.longValue();
+        if(MathUtils.isApproximatelyLong(number.doubleValue())) {
+            numberString += Math.round(number.doubleValue());
         } else {
             numberString += number;
         }
@@ -35,7 +36,7 @@ public class MathUtils {
     }
 
     public static boolean isApproximatelyLong(Double number) {
-        long numberInLong = number.longValue();
+        long numberInLong = Math.round(number);
         return number - numberInLong < 0.01;
     }
 
@@ -49,18 +50,55 @@ public class MathUtils {
         return sum/(double)count;
     }
 
-    public static Interval<Long> computeLongInterval(List<Double> numbers) {
+    public static Interval computeLongInterval(List<Double> numbers) {
         double average = computeAverage(numbers);
-        long min = (long) Math.ceil(average/50.0);
-        long max = (long) Math.floor(average*2.0);
-        return new Interval<>(min, max);
+        double min = Math.ceil(average/50.0);
+        double max = Math.floor(average*2.0);
+        return new Interval(min, max);
     }
 
-    public static Interval<Double> computeDoubleInterval(List<Double> numbers) {
+    public static Interval computeDoubleInterval(List<Double> numbers) {
         double average = computeAverage(numbers);
         double min = average/50.0;
         double max = average * 2.0;
-        return new Interval<Double>(min, max);
+        return new Interval(min, max);
     }
 
+    public static List<Number> addVectors(List<? extends Number> vector1, List<Number> vector2) {
+        List<Number> result = new ArrayList<>();
+        for (int i = 0; i < vector1.size(); i++) {
+            result.add(i, addNumbers(vector1.get(i), vector2.get(i)));
+        }
+        return result;
+    }
+
+    public static List<Number> multiplyByScalar(Number scalar, List<? extends Number> vector) {
+        List<Number> result = new ArrayList<>();
+        for (Number val : vector) {
+            result.add(multiplyNumbers(scalar, val));
+        }
+        return result;
+    }
+
+    private static Number addNumbers(Number number1, Number number2) {
+        if(number1 instanceof Long) {
+            return number1.longValue() + number2.longValue();
+        } else if(number1 instanceof Double) {
+            return number1.doubleValue() + number2.doubleValue();
+        }
+        return null;
+    }
+
+    private static Number multiplyNumbers(Number number1, Number number2) {
+        if(number1 instanceof Long) {
+            return number1.longValue() * number2.longValue();
+        } else if(number1 instanceof Double) {
+            return number1.doubleValue() * number2.doubleValue();
+        }
+        return null;
+    }
+
+    public static Double roundToThreeDecimals(Double value) {
+        return Math.floor(value * 1000.0) / 1000.0;
+    }
 }

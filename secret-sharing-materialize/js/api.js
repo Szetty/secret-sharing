@@ -1,5 +1,5 @@
-//var serverUrl = "http://localhost:8080/api";
-var serverUrl = "http://192.168.2.193:8080/api";
+var serverUrl = "http://localhost:8080/api";
+//var serverUrl = "http://192.168.2.193:8080/api";
 
 function hello(success) {
     $.ajax({
