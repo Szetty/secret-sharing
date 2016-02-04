@@ -1,6 +1,6 @@
-package edu.crypto.secretsharing.repository;
+package edu.crypto.secretsharing.scheme.repository;
 
-import edu.crypto.secretsharing.domain.Share;
+import edu.crypto.secretsharing.scheme.domain.Share;
 import edu.crypto.secretsharing.exception.ServerException;
 
 import java.util.List;

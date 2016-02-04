@@ -1,7 +1,7 @@
-package edu.crypto.secretsharing.shamir.factory;
+package edu.crypto.secretsharing.scheme.shamir.factory;
 
-import edu.crypto.secretsharing.shamir.domain.Coefficient;
-import edu.crypto.secretsharing.shamir.domain.Polynomial;
+import edu.crypto.secretsharing.scheme.shamir.domain.Coefficient;
+import edu.crypto.secretsharing.scheme.shamir.domain.Polynomial;
 import edu.crypto.secretsharing.util.MathUtils;
 import edu.crypto.secretsharing.util.RandomGenerator;
 

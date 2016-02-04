@@ -2,6 +2,7 @@ package edu.crypto.secretsharing.util;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class MathUtils {
 
@@ -73,11 +74,7 @@ public class MathUtils {
     }
 
     public static List<Number> multiplyByScalar(Number scalar, List<? extends Number> vector) {
-        List<Number> result = new ArrayList<>();
-        for (Number val : vector) {
-            result.add(multiplyNumbers(scalar, val));
-        }
-        return result;
+        return vector.stream().map(val -> multiplyNumbers(scalar, val)).collect(Collectors.toList());
     }
 
     private static Number addNumbers(Number number1, Number number2) {
@@ -100,5 +97,40 @@ public class MathUtils {
 
     public static Double roundToThreeDecimals(Double value) {
         return Math.floor(value * 1000.0) / 1000.0;
+    }
+
+    public static long gcd(long a, long b)
+    {
+        if(a == 0 || b == 0) return a+b;
+        return gcd(b,a%b);
+    }
+
+    public static long getMinimumValue(List<Long> numbers) {
+        long min = Long.MAX_VALUE;
+        for (Long number : numbers) {
+            if(number < min) {
+                min = number;
+            }
+        }
+        return min;
+    }
+
+    public static long getMaximumValue(List<Long> numbers) {
+        long max = Long.MIN_VALUE;
+        for (Long number : numbers) {
+            if(number > max) {
+                max = number;
+            }
+        }
+        return max;
+    }
+
+    public static boolean isRelativePrimeWithAll(List<Long> shares, long current) {
+        for (Long share : shares) {
+            if(gcd(share, current) != 1) {
+                return false;
+            }
+        }
+        return true;
     }
 }

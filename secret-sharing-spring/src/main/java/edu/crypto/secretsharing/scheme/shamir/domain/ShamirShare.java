@@ -1,6 +1,6 @@
-package edu.crypto.secretsharing.shamir.domain;
+package edu.crypto.secretsharing.scheme.shamir.domain;
 
-import edu.crypto.secretsharing.domain.Share;
+import edu.crypto.secretsharing.scheme.domain.Share;
 import edu.crypto.secretsharing.util.StringUtils;
 
 import java.util.List;

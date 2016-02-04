@@ -1,6 +1,6 @@
-package edu.crypto.secretsharing.shamir.dto;
+package edu.crypto.secretsharing.scheme.shamir.dto;
 
-import edu.crypto.secretsharing.shamir.domain.ShamirShare;
+import edu.crypto.secretsharing.scheme.shamir.domain.ShamirShare;
 
 import java.util.List;
 
@@ -9,9 +9,7 @@ public class ShamirReconstructRequestDTO {
     private int type;
     private List<ShamirShare> shares;
 
-    public ShamirReconstructRequestDTO() {
-
-    }
+    public ShamirReconstructRequestDTO() {}
 
     public int getType() {
         return type;

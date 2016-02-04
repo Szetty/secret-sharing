@@ -1,8 +1,8 @@
-package edu.crypto.secretsharing.shamir.factory;
+package edu.crypto.secretsharing.scheme.shamir.factory;
 
-import edu.crypto.secretsharing.domain.Share;
-import edu.crypto.secretsharing.shamir.domain.Polynomial;
-import edu.crypto.secretsharing.shamir.domain.ShamirShare;
+import edu.crypto.secretsharing.scheme.domain.Share;
+import edu.crypto.secretsharing.scheme.shamir.domain.Polynomial;
+import edu.crypto.secretsharing.scheme.shamir.domain.ShamirShare;
 import edu.crypto.secretsharing.util.RandomGenerator;
 
 import java.util.ArrayList;

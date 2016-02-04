@@ -1,4 +1,4 @@
-package edu.crypto.secretsharing.dto;
+package edu.crypto.secretsharing.scheme.dto;
 
 public class SplitRequestDTO {
 
@@ -6,6 +6,7 @@ public class SplitRequestDTO {
     private String secret;
     private int n;
     private int t;
+    private int scheme;
 
     public SplitRequestDTO() {
     }
@@ -47,5 +48,13 @@ public class SplitRequestDTO {
 
     public void setT(int t) {
         this.t = t;
+    }
+
+    public int getScheme() {
+        return scheme;
+    }
+
+    public void setScheme(int scheme) {
+        this.scheme = scheme;
     }
 }

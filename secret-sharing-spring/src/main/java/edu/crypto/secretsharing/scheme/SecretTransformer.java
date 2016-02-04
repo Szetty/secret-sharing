@@ -1,4 +1,4 @@
-package edu.crypto.secretsharing.workers;
+package edu.crypto.secretsharing.scheme;
 
 import edu.crypto.secretsharing.exception.ServerException;
 import edu.crypto.secretsharing.util.MathUtils;
@@ -24,6 +24,29 @@ public class SecretTransformer {
             case 3:
                 for (int i = 0; i < secret.length(); i++) {
                     secretList.add((double)secret.charAt(i));
+                }
+                break;
+            default:
+                throw new ServerException("Unknown type "+type);
+        }
+        return secretList;
+    }
+
+    public static List<Long> transformSecretToLongList(int type, String secret) throws ServerException {
+        List<Long> secretList = new ArrayList<>();
+        switch (type) {
+            case 1:
+                secretList.add(Long.parseLong(secret));
+                break;
+            case 2:
+                String[] tokens = secret.split(",");
+                for (String token : tokens) {
+                    secretList.add(Long.parseLong(token));
+                }
+                break;
+            case 3:
+                for (int i = 0; i < secret.length(); i++) {
+                    secretList.add((long)secret.charAt(i));
                 }
                 break;
             default:

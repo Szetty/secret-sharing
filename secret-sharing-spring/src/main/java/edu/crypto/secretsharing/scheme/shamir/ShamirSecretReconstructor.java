@@ -1,10 +1,10 @@
-package edu.crypto.secretsharing.shamir;
+package edu.crypto.secretsharing.scheme.shamir;
 
 import edu.crypto.secretsharing.exception.ServerException;
-import edu.crypto.secretsharing.shamir.domain.ShamirShare;
-import edu.crypto.secretsharing.shamir.dto.ShamirReconstructRequestDTO;
+import edu.crypto.secretsharing.scheme.shamir.domain.ShamirShare;
+import edu.crypto.secretsharing.scheme.shamir.dto.ShamirReconstructRequestDTO;
 import edu.crypto.secretsharing.util.MathUtils;
-import edu.crypto.secretsharing.workers.SecretTransformer;
+import edu.crypto.secretsharing.scheme.SecretTransformer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,9 +55,7 @@ public class ShamirSecretReconstructor {
                 result.add(longs);
             }
         } else {
-            for (ShamirShare share : shares) {
-                result.add(share.getValue());
-            }
+            result.addAll(shares.stream().map(ShamirShare::getValue).collect(Collectors.toList()));
         }
         return result;
     }

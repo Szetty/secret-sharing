@@ -1,4 +1,4 @@
-package edu.crypto.secretsharing.shamir.domain;
+package edu.crypto.secretsharing.scheme.shamir.domain;
 
 import edu.crypto.secretsharing.util.MathUtils;
 
