@@ -56,7 +56,6 @@ public class CRTSecretReconstructor {
 
         x = leastPosEquiv(x, M);
 
-        System.out.println("x is equivalent to " + x + " mod " + M);
         return x;
     }
 

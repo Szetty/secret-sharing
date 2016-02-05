@@ -9,11 +9,10 @@ import java.util.List;
 public class ModuloFactory {
 
     public static List<Long> generateModulos(int n, int t, List<Long> secret) throws ServerException {
-        if(t > n / 2.0) {
-            return generateSecureModulosIfPossible(n, t, secret);
-        } else {
-            return generateInsecureModulos(n);
+        if(t < n / 2.0) {
+            t = (int)Math.round(n / 2.0 + 0.001);
         }
+        return generateSecureModulosIfPossible(n, t, secret);
     }
 
     private static List<Long> generateInsecureModulos(int n) {
