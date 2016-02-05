@@ -19,6 +19,11 @@ public class ShamirSecretReconstructor {
 
     public static String reconstruct(ShamirReconstructRequestDTO reconstructRequest) throws ServerException {
         List<Number> secret = reconstruct(reconstructRequest.getShares(), reconstructRequest.getType() == 3);
+        for (int i = 0; i < secret.size(); i++) {
+            if(MathUtils.isApproximatelyLong(secret.get(i).doubleValue())) {
+                secret.set(i, Math.round(secret.get(i).doubleValue()));
+            }
+        }
         return SecretTransformer.transformToSecret(reconstructRequest.getType(), secret);
     }
 
@@ -26,20 +31,33 @@ public class ShamirSecretReconstructor {
         k = shares.size();
         x = buildXVector(shares, isString);
         y = buildYVector(shares, isString);
-        List<Number> secret = getCurrentVector(0);
+        List<Number> secret = getCurrentVector(0, isString);
         for (int i = 1; i < k; i++) {
-            secret = MathUtils.addVectors(secret, getCurrentVector(i));
+            secret = MathUtils.addVectors(secret, getCurrentVector(i, isString));
         }
         return secret;
     }
 
-    private static List<Number> getCurrentVector(int i) {
+    private static List<Number> getCurrentVector(int i, boolean isString) {
         List<? extends Number> currentY = y.get(i);
-        double product = 1.0;
-        for (int j = 0; j < k; j++) {
-            if(j != i) {
-                product *= (-x.get(j).doubleValue()) / (x.get(i).doubleValue() - x.get(j).doubleValue());
+        double product;
+        if(!isString) {
+            product = 1.0;
+            for (int j = 0; j < k; j++) {
+                if(j != i) {
+                    product *= (-x.get(j).doubleValue()) / (x.get(i).doubleValue() - x.get(j).doubleValue());
+                }
             }
+        } else {
+            long top = 0L;
+            long bottom = 0L;
+            for (int j = 0; j < k; j++) {
+                if(j != i) {
+                    top += -x.get(j).longValue();
+                    bottom += x.get(i).longValue() - x.get(j).longValue();
+                }
+            }
+            product = (double)top / (double)bottom;
         }
         return MathUtils.multiplyByScalar(product, currentY);
     }
