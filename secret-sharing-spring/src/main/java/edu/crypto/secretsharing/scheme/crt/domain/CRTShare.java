@@ -6,12 +6,22 @@ import java.util.List;
 
 public class CRTShare implements Share {
 
-    public List<Long> value;
+    private Long modulo;
+
+    private List<Long> value;
 
     public CRTShare() {}
 
     public CRTShare(List<Long> value) {
         this.value = value;
+    }
+
+    public Long getModulo() {
+        return modulo;
+    }
+
+    public void setModulo(Long modulo) {
+        this.modulo = modulo;
     }
 
     public List<Long> getValue() {

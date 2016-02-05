@@ -55,7 +55,7 @@ public class SecretTransformer {
         return secretList;
     }
 
-    public static String transformToSecret(int type, List<Number> secret) throws ServerException {
+    public static String transformToSecret(int type, List<? extends Number> secret) throws ServerException {
         switch (type) {
             case 1:
                 return MathUtils.numberToString(secret.get(0));

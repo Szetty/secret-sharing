@@ -20,6 +20,7 @@ public class ShareFactory {
                     .map(value -> value % modulo)
                     .collect(Collectors.toList())
             );
+            share.setModulo(modulo);
             shares.add(share);
         }
         return shares;

@@ -17,7 +17,8 @@ public class CRTSecretSplitter {
         System.out.println("(" + modulos
                 .parallelStream()
                 .map(Object::toString)
-                .reduce((r, r2) -> r + "," + r2).get() + ")"
+                .reduce((r, r2) -> r + "," + r2)
+                .get() + ")"
         );
         return ShareFactory.generateShares(modulos, transformedSecret);
     }
