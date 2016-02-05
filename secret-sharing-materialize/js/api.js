@@ -1,5 +1,5 @@
-var serverUrl = "http://localhost:8080/secret-sharing";
-//var serverUrl = "http://192.168.2.192:8080/secret-sharing";
+//var serverUrl = "http://localhost:8080/secret-sharing";
+var serverUrl = "http://192.168.2.192:8080/secret-sharing";
 
 function restSplitSecret(splitRequest, successFn, errorFn) {
     doAjaxPost(
@@ -14,6 +14,15 @@ function restReconstructShamirSecret(shamirReconstructRequest, successFn) {
     doAjaxPost(
         "/reconstruct/shamir",
         shamirReconstructRequest,
+        successFn,
+        null
+    )
+}
+
+function restReconstructCRTSecret(crtReconstructRequest, successFn) {
+    doAjaxPost(
+        "/reconstruct/crt",
+        crtReconstructRequest,
         successFn,
         null
     )

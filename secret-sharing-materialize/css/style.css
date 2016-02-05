@@ -13,3 +13,7 @@
 .padded {
     padding: 5px 20px;
 }
+
+.toast {
+    top: -65px !important;
+}

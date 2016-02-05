@@ -23,7 +23,9 @@ function addError(error) {
 function addMessage(message, isError) {
     if(isError) {
         $('#messages').append(
-            "<div class='row red-text text-darken-4'>" + message +"</div>"
+             "<div class='col'>"
+            +   "<div class='row red-text text-darken-4'>" + message +"</div>"
+            +"</div>"
         )
     } else {
         $('#messages').append(
@@ -71,7 +73,7 @@ function validateNumberComponents(n, t) {
     } else if(n <= 0) {
         addError("The number n must be higher than 0!");
         return false;
-    } else if(t <= 0 || t > n) {
+    } else if(t <= 1 || t > n) {
         addError("The number t must be higher than 0 and less than n!");
         return false;
     }
@@ -117,8 +119,11 @@ function splitSecret() {
     var secret = $('#secret').val();
     var n = parseInt($('#n').val());
     var t = parseInt($('#t').val());
-    if(validateNumberComponents(n, t) && validateSecretComponent(type, secret)) {
-        restSplitSecret(new SplitRequest(scheme, type, secret, n, t),
+    if(validateNumberComponents(n, t) & validateSecretComponent(type, secret)) {
+        if(scheme=='2' && t < n/2) {
+            Materialize.toast('Warning: t is too small relative to n, the shares will be generated for bigger t!', 6000, 'rounded toast');
+        }
+         restSplitSecret(new SplitRequest(scheme, type, secret, n, t),
             function(){
                 $('#shares-title').show();
                 loadShares(n);
@@ -147,15 +152,37 @@ function reconstructSecret() {
         var share = transformStringIntoShare($('#share-'+i).val());
         shares.push(share);
     }
+    if(shares==[]){
+        addMessage('You must add some shares!', true);
+        return;
+    }
+    var scheme = $('#reconstruct-schemes').val();
     var type = parseInt($('#reconstruct-secret-type').val());
-    restReconstructShamirSecret(new ShamirReconstructRequest(
-        type,
-        shares
-    ), function(res) {
-        addMessage(res, false);
-    }, function(error) {
-        addMessage(getErrorMessage(error), true);
-    })
+    if(type=='1' || type=='2' || type=='3') {
+        if(scheme=='1') {
+            restReconstructShamirSecret(new ShamirReconstructRequest(
+                type,
+                shares
+            ), function(res) {
+                addMessage(res, false);
+            }, function(error) {
+                addMessage(getErrorMessage(error), true);
+            })
+        } else if(scheme=='2') {
+            restReconstructCRTSecret(new CRTReconstructRequest(
+                type,
+                shares
+            ), function(res) {
+                addMessage(res, false);
+            }, function(error) {
+                addMessage(getErrorMessage(error), true);
+            })
+        } else {
+            addMessage('You must select a scheme!', true);
+        }
+    } else {
+        addMessage('You must select the secret type!', true);
+    }
 }
 
 function transformStringIntoShare(string) {
