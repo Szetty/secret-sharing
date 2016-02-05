@@ -59,7 +59,7 @@ function loadShares(n) {
     var icon = '<div class="material-icons">play_for_work</div>';
     var html = '';
     for (i = 0; i < n; i++) {
-        if(i%7==0) {
+        if(i%10==0) {
             if(html != '') {
                 html+='</div>';
             }
@@ -82,6 +82,7 @@ function loadShares(n) {
 
 function validateMainForm() {
     clearErrors();
+    var scheme = parseInt($('#schemes').val());
     var type = parseInt($('#secret-type').val());
     var secret = $('#secret').val();
     var n = parseInt($('#n').val());
@@ -89,11 +90,23 @@ function validateMainForm() {
     if(validateNumberComponents(n, t) & validateSecretComponent(type, secret)) {
         loadShares(n);
         $('#shares-title').show();
-        getShares(new SplitRequest(type, secret, n, t));
+        getShares(new SplitRequest(scheme, type, secret, n, t));
+    }
+}
+
+function uploadTypeChange() {
+    var upload = $('#upload-type').val();
+    if(upload == 1) {
+        $('#one-shares').show();
+        $('#all-shares').hide();
+    } else if(upload == 2) {
+        $('#all-shares').show();
+        $('#one-shares').hide();
     }
 }
 
 $(document).ready(function() {
     init();
     $('#share-secret-button').click(validateMainForm);
+    $('#upload-type').change(uploadTypeChange);
 });

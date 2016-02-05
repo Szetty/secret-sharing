@@ -1,5 +1,6 @@
 var SplitRequest = (function () {
-    function SplitRequest(type, secret, n, t) {
+    function SplitRequest(scheme, type, secret, n, t) {
+        this.scheme = scheme;
         this.type = type;
         this.secret = secret;
         this.n = n;

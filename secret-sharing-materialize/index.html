@@ -9,10 +9,80 @@
   </head>
 
   <body background="resources/background.jpg">
-    <div class="row">
-        <form id="secret-share-form" class="col s6 offset-s3 container light-blue accent-1 z-depth-5">
-            <div id="errors" class="col s12 container"></div>
+
+    <div id="container" class="col s2 container light-blue accent-1 z-depth-5">
+        <div class="col s12 light-blue accent-1 z-depth-2">
+            <ul class="tabs" light-blue>
+                <li class="tab col s6"><a class="active light-blue accent-1 z-depth-5 blue-text text-darken-4" href="#secret-share-form">Spread secret</a></li>
+                <li class="tab col s6"><a class="light-blue accent-1 z-depth-5 blue-text text-darken-4" href="#reconstruct-secret">Reconstruct secret</a></li>
+            </ul>
+        </div>
+        <div id="reconstruct-secret">
+            <div class="row padded">
+                <div class="input-field col s6">
+                    <select id="schemes-r">
+                        <option value="" disabled selected>Choose the scheme</option>
+                        <option value="1">Shamir scheme</option>
+                        <option value="2">Chinese Remainder Theorem scheme</option>
+                    </select>
+                    <label for="schemes" style="font-size: medium;" class="blue-text text-darken-4">Schemes</label>
+                </div>
+                <div class="input-field col s6">
+                    <select id="secret-type-r">
+                        <option value="" disabled selected>Choose the secret type</option>
+                        <option value="1">Number</option>
+                        <option value="2">Vector of numbers</option>
+                        <option value="3">String</option>
+                    </select>
+                    <label for="secret-type" style="font-size: medium;" class="blue-text text-darken-4">Secret type</label>
+                </div>
+            </div>
+            <div class="row padded">
+                <div class="input-field col s6 offset-s3">
+                    <select id="upload-type">
+                        <option value="" disabled selected>Choose the upload type</option>
+                        <option value="1">One by one</option>
+                        <option value="2">All at once</option>
+                    </select>
+                    <label for="upload-type" style="font-size: medium;" class="blue-text text-darken-4">Upload type</label>
+                </div>
+            </div>
             <div class="row">
+                <div id="all-shares" class="col s2 offset-s5" style="display:none; padding-left: 45px;">
+                    <div class="row" style="display: flex">
+                        <div class="col">
+                            <h5>Shares:</h5>
+                        </div>
+                        <div class="col">
+                            <i class="material-icons" style="bottom: -12px;position: relative;">open_in_browser</i>
+                        </div>
+                     </div>
+                </div>
+            </div>
+            <div class="row">
+                <div id="one-shares" class="col s6 offset-s3" style="display:none; padding-left: 45px;">
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input id="t-reconstruct" type="number">
+                            <label for="t" class="blue-text text-darken-4">t</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="secret-share-form">
+            <div id="errors" class="col s12 container"></div>
+            <div class="row padded">
+                <div class="input-field col s6 offset-s3">
+                    <select id="schemes">
+                        <option value="" disabled selected>Choose the scheme</option>
+                        <option value="1">Shamir scheme</option>
+                        <option value="2">Chinese Remainder Theorem scheme</option>
+                    </select>
+                    <label for="schemes" style="font-size: medium;" class="blue-text text-darken-4">Schemes</label>
+                </div>
+            </div>
+            <div class="row padded">
                 <div class="input-field col s6">
                     <select id="secret-type">
                         <option value="" disabled selected>Choose the secret type</option>
@@ -20,37 +90,36 @@
                         <option value="2">Vector of numbers</option>
                         <option value="3">String</option>
                     </select>
-                    <label for="secret-type">Secret type</label>
+                    <label for="secret-type" style="font-size: medium;" class="blue-text text-darken-4">Secret type</label>
                 </div>
                 <div class="input-field col s6">
                     <input id="secret" type="text">
-                    <label for="secret">Secret</label>
+                    <label for="secret" class="blue-text text-darken-4">Secret</label>
                 </div>
             </div>
-            <div class="row">
+            <div class="row padded">
                 <div class="input-field col s6">
                     <input id="n" type="number">
-                    <label for="n">n</label>
+                    <label for="n" class="blue-text text-darken-4">n</label>
                 </div>
                 <div class="input-field col s6">
                     <input id="t" type="number">
-                    <label for="t">t</label>
+                    <label for="t" class="blue-text text-darken-4">t</label>
                 </div>
             </div>
             <div class="row">
                 <a id="share-secret-button" class="col s2 offset-s5 waves-effect waves-light btn">Share Secret</a>
             </div><br>
-            <div class="divider grey"></div>
-            <div id="shares-title" class="row" style="display:none">
-                <h5 class="col offset-s1">Shares:</h5>
+            <div id="shares-title" class="col" style="display:none">
+                <div class="divider grey"></div>
+                <h5 class="col padded">Shares:</h5>
             </div>
             <div class="row">
                 <div id="shares" class="col" style="display:none; padding-left: 45px;">
+                </div>
             </div>
-            </div>
-        </form>
+        </div>
     </div>
-
 
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script type="text/javascript" src="js/materialize.min.js"></script>

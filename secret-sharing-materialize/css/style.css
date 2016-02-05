@@ -1,4 +1,15 @@
-#secret-share-form {
+#container {
     position: absolute;
-    top: 200px;
+    top: 75px;
+    left: 208px;
+}
+#background {
+    border: 2px solid #2dffed;
+    width: 1000px;
+    height: 400px;
+    margin-left: 170px;
+}
+
+.padded {
+    padding: 20px;
 }
