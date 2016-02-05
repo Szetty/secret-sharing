@@ -1,7 +1,41 @@
+function getErrorMessage(error) {
+    if(error.statusText == "timeout") {
+        return "Connection to the server timed out!";
+    } else {
+        return error.statusText;
+    }
+}
+
+function clearErrors() {
+    $('#errors').html("");
+}
+
+function clearMessages() {
+    $('#messages').html("");
+}
+
 function addError(error) {
     $('#errors').append(
         "<div class='row red-text text-darken-4'>" + error +"</div>"
     )
+}
+
+function addMessage(message, isError) {
+    if(isError) {
+        $('#messages').append(
+            "<div class='row red-text text-darken-4'>" + message +"</div>"
+        )
+    } else {
+        $('#messages').append(
+             "<div class='col green-text text-accent-4 s6 offset-s4'>"
+             +  "<h3>The secret is: </h3>"
+             +"</div>"
+             +"<div class='col s6 offset-s3'>"
+             +  "<textarea class='grey lighten-4' style='height:50px;'>"+ message +"</textarea>"
+             +"</div>"
+        )
+    }
+
 }
 
 function validateSecretComponent(type, secret) {
@@ -44,17 +78,13 @@ function validateNumberComponents(n, t) {
     return true;
 }
 
-function clearErrors() {
-    $('#errors').html("");
-}
-
 function init() {
     $('select').material_select();
     $('.parallax').parallax();
 }
 
 function loadShares(n) {
-    var inlineDiv = "<div style='display: flex;'>"
+    var inlineDiv = "<div style='display: flex;'>";
     $('#shares').html('');
     var icon = '<div class="material-icons">play_for_work</div>';
     var html = '';
@@ -75,38 +105,74 @@ function loadShares(n) {
         html += '</div>';
         $('#shares').append(html);
     }
-    html += '</div>'
-    $('#shares').html(html)
+    html += '</div>';
+    $('#shares').html(html);
     $('#shares').show();
 }
 
-function validateMainForm() {
+function splitSecret() {
     clearErrors();
     var scheme = parseInt($('#schemes').val());
     var type = parseInt($('#secret-type').val());
     var secret = $('#secret').val();
     var n = parseInt($('#n').val());
     var t = parseInt($('#t').val());
-    if(validateNumberComponents(n, t) & validateSecretComponent(type, secret)) {
-        loadShares(n);
-        $('#shares-title').show();
-        getShares(new SplitRequest(scheme, type, secret, n, t));
+    if(validateNumberComponents(n, t) && validateSecretComponent(type, secret)) {
+        restSplitSecret(new SplitRequest(scheme, type, secret, n, t),
+            function(){
+                $('#shares-title').show();
+                loadShares(n);
+            },
+            function(error) {
+                addError(getErrorMessage(error));
+            }
+        );
     }
 }
 
-function uploadTypeChange() {
-    var upload = $('#upload-type').val();
-    if(upload == 1) {
-        $('#one-shares').show();
-        $('#all-shares').hide();
-    } else if(upload == 2) {
-        $('#all-shares').show();
-        $('#one-shares').hide();
+function changeNumberOfShares() {
+    var html = '';
+    var shareNr = parseInt($('#share-nr').val());
+    for(var i = 0; i < shareNr; i++) {
+        html += getShareTemplate(i);
+    }
+    $('#shares-reconstruct').html(html);
+}
+
+function reconstructSecret() {
+    clearMessages();
+    var shares = [];
+    var shareNr = parseInt($('#share-nr').val());
+    for(var i = 0; i < shareNr; i++) {
+        var share = transformStringIntoShare($('#share-'+i).val());
+        shares.push(share);
+    }
+    var type = parseInt($('#reconstruct-secret-type').val());
+    restReconstructShamirSecret(new ShamirReconstructRequest(
+        type,
+        shares
+    ), function(res) {
+        addMessage(res, false);
+    }, function(error) {
+        addMessage(getErrorMessage(error), true);
+    })
+}
+
+function transformStringIntoShare(string) {
+    var scheme = parseInt($('#reconstruct-schemes').val());
+    switch (scheme) {
+        case 1:
+            return ShamirShare.fromJsonString(string);
+        case 2:
+            return CRTShare.fromJsonString(string);
+        default:
+            return ""
     }
 }
 
 $(document).ready(function() {
     init();
-    $('#share-secret-button').click(validateMainForm);
-    $('#upload-type').change(uploadTypeChange);
+    $('#share-secret-button').click(splitSecret);
+    $('#share-nr').change(changeNumberOfShares);
+    $('#reconstruct-secret-button').click(reconstructSecret);
 });

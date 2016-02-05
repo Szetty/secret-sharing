@@ -18,60 +18,46 @@
             </ul>
         </div>
         <div id="reconstruct-secret">
+            <div class="col s12 padded">
+                <div id="messages" class="row">
+
+                </div>
+            </div>
             <div class="row padded">
                 <div class="input-field col s6">
-                    <select id="schemes-r">
+                    <select id="reconstruct-schemes">
                         <option value="" disabled selected>Choose the scheme</option>
                         <option value="1">Shamir scheme</option>
                         <option value="2">Chinese Remainder Theorem scheme</option>
                     </select>
-                    <label for="schemes" style="font-size: medium;" class="blue-text text-darken-4">Schemes</label>
+                    <label for="reconstruct-schemes" style="font-size: medium;" class="blue-text text-darken-4">Schemes</label>
                 </div>
                 <div class="input-field col s6">
-                    <select id="secret-type-r">
+                    <select id="reconstruct-secret-type">
                         <option value="" disabled selected>Choose the secret type</option>
                         <option value="1">Number</option>
                         <option value="2">Vector of numbers</option>
                         <option value="3">String</option>
                     </select>
-                    <label for="secret-type" style="font-size: medium;" class="blue-text text-darken-4">Secret type</label>
+                    <label for="reconstruct-secret-type" style="font-size: medium;" class="blue-text text-darken-4">Secret type</label>
                 </div>
             </div>
-            <div class="row padded">
+            <div class="row">
                 <div class="input-field col s6 offset-s3">
-                    <select id="upload-type">
-                        <option value="" disabled selected>Choose the upload type</option>
-                        <option value="1">One by one</option>
-                        <option value="2">All at once</option>
-                    </select>
-                    <label for="upload-type" style="font-size: medium;" class="blue-text text-darken-4">Upload type</label>
+                    <input id="share-nr" type="number">
+                    <label for="share-nr" class="blue-text text-darken-4">Share Number</label>
                 </div>
             </div>
             <div class="row">
-                <div id="all-shares" class="col s2 offset-s5" style="display:none; padding-left: 45px;">
-                    <div class="row" style="display: flex">
-                        <div class="col">
-                            <h5>Shares:</h5>
-                        </div>
-                        <div class="col">
-                            <i class="material-icons" style="bottom: -12px;position: relative;">open_in_browser</i>
-                        </div>
-                     </div>
+                <div id="shares-reconstruct" class="col s10 offset-s1">
                 </div>
             </div>
             <div class="row">
-                <div id="one-shares" class="col s6 offset-s3" style="display:none; padding-left: 45px;">
-                    <div class="row">
-                        <div class="input-field col s12">
-                            <input id="t-reconstruct" type="number">
-                            <label for="t" class="blue-text text-darken-4">t</label>
-                        </div>
-                    </div>
-                </div>
+                <a id="reconstruct-secret-button" class="col s2 offset-s5 waves-effect waves-light btn">Reconstruct Secret</a>
             </div>
         </div>
         <div id="secret-share-form">
-            <div id="errors" class="col s12 container"></div>
+            <div id="errors" class="col s12 padded"></div>
             <div class="row padded">
                 <div class="input-field col s6 offset-s3">
                     <select id="schemes">
@@ -109,7 +95,7 @@
             </div>
             <div class="row">
                 <a id="share-secret-button" class="col s2 offset-s5 waves-effect waves-light btn">Share Secret</a>
-            </div><br>
+            </div>
             <div id="shares-title" class="col" style="display:none">
                 <div class="divider grey"></div>
                 <h5 class="col padded">Shares:</h5>
@@ -124,6 +110,10 @@
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script type="text/javascript" src="js/materialize.min.js"></script>
     <script type="text/javascript" src="js/domain/SplitRequest.js"></script>
+    <script type="text/javascript" src="js/domain/CRTShare.js"></script>
+    <script type="text/javascript" src="js/domain/ShamirShare.js"></script>
+    <script type="text/javascript" src="js/domain/ShamirReconstructRequest.js"></script>
+    <script type="text/javascript" src="js/htmlTemplates.js"></script>
     <script type="text/javascript" src="js/api.js"></script>
     <script type="text/javascript" src="js/controller.js"></script>
   </body>
